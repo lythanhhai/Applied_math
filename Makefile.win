@@ -1,0 +1,28 @@
+# Project: Project2
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/svd.o
+LINKOBJ  = ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/svd.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/ComplexEigenSolver.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/ComplexSchur.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/ComplexSchur_LAPACKE.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/EigenSolver.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/GeneralizedSelfAdjointEigenSolver.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/HessenbergDecomposition.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/RealQZ.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/RealSchur.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/RealSchur_LAPACKE.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/SelfAdjointEigenSolver.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/SelfAdjointEigenSolver_LAPACKE.h ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/Tridiagonalization.h -pg
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = Test.exe
+CXXFLAGS = $(CXXINCS) -pg -std=c99
+CFLAGS   = $(INCS) -pg -std=c99
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/svd.o: ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/svd.cpp
+	$(CPP) -c ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/svd.cpp -o ../../../Technologies/eigen/eigen-3.4.0/Eigen/src/Eigenvalues/svd.o $(CXXFLAGS)
