@@ -166,6 +166,18 @@ float timFMin(float heSo[], float arr[][100],float b[], float c[], float delta[]
             // thay thế heSo
             heSo[indexMaxArr] = c[indexMax];
 
+            // update b
+            for(int i = 0 ; i < m; i++)
+            {
+                    if(i == indexMaxArr)
+                    {
+                        b[i] = b[i] / arr[i][indexMax];
+                    }
+                    else 
+                    {
+                        b[i] = b[i] -  (b[i] / arr[indexMaxArr][indexMax]) * c[indexMax];
+                    }
+            }
             // update arr
             for(int i = 0 ; i < m; i++)
             {
@@ -180,18 +192,6 @@ float timFMin(float heSo[], float arr[][100],float b[], float c[], float delta[]
                         arr[i][j] = arr[i][j] -  (arr[indexMaxArr][j] / arr[indexMaxArr][indexMax]) * c[indexMax];
                     }
                 }
-            }
-            // update b
-            for(int i = 0 ; i < m; i++)
-            {
-                    if(i == indexMaxArr)
-                    {
-                        b[i] = b[i] / arr[i][indexMax];
-                    }
-                    else 
-                    {
-                        b[i] = b[i] -  (b[indexMaxArr] / arr[indexMaxArr][indexMax]) * c[indexMax];
-                    }
             }
         }
         
