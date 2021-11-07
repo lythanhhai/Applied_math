@@ -3,8 +3,7 @@
 #include <math.h>
 
 using namespace std;
-
-void nhapMaTranA(float arr[][100], int m, int n)
+void nhapMaTranA(double arr[][100], int m, int n)
 {
     for(int i = 0; i < m; i++)
     {
@@ -16,7 +15,7 @@ void nhapMaTranA(float arr[][100], int m, int n)
     }
        
 }
-void nhapVectoB(float b[], int m)
+void nhapVectoB(double b[], int m)
 {
     for(int i = 0; i < m; i++)
     {
@@ -25,192 +24,13 @@ void nhapVectoB(float b[], int m)
     }
 }
 
-void nhapVectoC(float c[], int n)
+void nhapVectoC(double c[], int n)
 {
     for(int i = 0; i < n; i++)
     {
         cout << "nhap c[" << i << "]" << endl;   
         cin >> c[i];
     }
-}
-
-void timHeSo(float heSo[], float arr[][100], float c[], int m, int n)
-{
-    int count = 0;
-    int index = 0;
-    for(int i = 0; i < n; i++)
-    {
-        for(int j = 0; j < m; j++)
-        {
-            if(arr[j][i] != 0)
-            {
-                count++;
-                //break;
-            }
-        } 
-        if(count == 1)
-        {
-            // if(index >= m)
-            // {
-            //     break;
-            // }
-            heSo[index] = c[i];
-            index++;
-            count = 0;
-        }
-        else 
-        {
-            count = 0;
-        }
-    }
-    cout << "heso" << endl;
-    for(int i = 0; i < m; i++)
-    {
-        cout << heSo[i] << endl;
-    }
-}
-
-void tinhDelta(float delta[], float arr[][100], float b[], float c[], float heSo[], int n, int m)
-{
-    
-    for(int i = 0 ; i < n; i++)
-    {
-        for(int j = 0; j < m ; j++)
-        {
-            delta[i] += heSo[j] * arr[j][i];
-        }
-    }
-    for(int i = 0 ; i < n; i++)
-    {
-        delta[i] = delta[i] - c[i];
-    }
-    for(int i = 0 ; i < n; i++)
-    {
-        if(delta[i] < 0)
-        {
-            delta[i] = 0;
-        }
-    }
-    
-
-    cout << "delta" << endl;
-    for(int i = 0; i < n ; i++)
-    {
-        cout << delta[i] << endl;
-    }
-        
-}
-
-float timFMin(float heSo[], float arr[][100],float b[], float c[], float delta[], int m, int n, int fmin)
-{
-     // Aik
-    int checkArr = 0;
-    int checkVoNghiem = 0;
-    float maxDelta = 0;
-    int indexMax = 0;
-    float MaxArr = 1000000;
-    int indexMaxArr = 1000000;
-
-
-    for(int i = 0 ; i < m; i++)
-    {
-        fmin += heSo[i] * b[i];
-    }
-    // xét delta 
-    int checkDelta = 0;
-    for(int i = 0 ; i < n; i++)
-    {
-        if(delta[i] <= 0)
-        {
-            checkDelta++;
-        }
-    }
-   
-    if(checkDelta == n)
-    {
-        return fmin;
-    }
-    else 
-    {
-        
-        for(int i = 0 ; i < n; i++)
-        {
-            for(int j = 0; j < m ; j++)
-            {
-                if(delta[i] > 0 && arr[j][i] > 0)
-                {
-                    if(maxDelta < delta[i])
-                    {
-                        maxDelta = delta[i];
-                        indexMax = i;
-                    }
-                    checkVoNghiem++;
-                }
-                
-            }
-        }
-        for(int i = 0 ; i < m ; i++)
-        {
-            if(MaxArr > (b[i] / arr[i][indexMax]) && arr[i][indexMax] > 0)
-            {
-                MaxArr = arr[i][indexMax];
-                indexMaxArr = i;
-            }       
-        }
-        if(checkVoNghiem <= 0)
-        {
-            return 0.001;
-        }
-        else 
-        {
-            // thay thế heSo
-            heSo[indexMaxArr] = c[indexMax];
-
-            // update b
-            for(int i = 0 ; i < m; i++)
-            {
-                    if(i == indexMaxArr)
-                    {
-                        b[i] = b[i] / arr[i][indexMax];
-                    }
-                    else 
-                    {
-                        b[i] = b[i] -  (b[i] / arr[indexMaxArr][indexMax]) * c[indexMax];
-                    }
-            }
-            // update arr
-            for(int i = 0 ; i < m; i++)
-            {
-                for(int j = 0; j < n ; j++)
-                {
-                    if(i == indexMaxArr)
-                    {
-                        arr[i][j] = arr[i][j] / arr[i][indexMax];
-                    }
-                    else 
-                    {
-                        arr[i][j] = arr[i][j] -  (arr[indexMaxArr][j] / arr[indexMaxArr][indexMax]) * c[indexMax];
-                    }
-                }
-            }
-        }
-        
-    }
-    tinhDelta(delta, arr, b, c, heSo, n, m);
-    cout << "A" << endl;
-            for(int i = 0 ; i < m; i++)
-            {
-                for(int j = 0; j < n ; j++)
-                {
-                    cout << arr[i][j] << endl;
-                }
-            }
-            cout << "B" << endl;
-            for(int i = 0 ; i < m; i++)
-            {
-                cout << b[i] << endl;
-            }
-    //timFMin(heSo, arr, b, c, delta, m, n, fmin);
 }
 
 int main()
@@ -221,16 +41,195 @@ int main()
     cin >> m;
     cout << "nhap n" << endl;
     cin >> n;
-    float array[m][100];
-    nhapMaTranA(array, m, n);
-    float b[m];
+    double arr[m][100];
+    nhapMaTranA(arr, m, n);
+    double b[m];
     nhapVectoB(b, m);
-    float c[n];
+    double c[n];
     nhapVectoC(c, n);
-    float heSo[m];
-    timHeSo(heSo, array, c, m, n);
-    float delta[n];
-    tinhDelta(delta, array, b, c, heSo, n, m);
-    float fmin = 0;
-    timFMin(heSo, array, b, c, delta, m, n, fmin);
+    cout<<" bat dau";
+     double heSo[m];
+    for(int i=0;i<m;i++)
+    {
+        heSo[i]=0;
+    }
+     int index =0;
+    
+    for(int i=0;i<n;i++)
+    {
+        int c2 =0;
+        int c1 =0;
+        for(int j=0;j<m;j++)
+        {
+            if(arr[j][i]==0)
+            {
+                c2++;
+            }
+           if( arr[j][i]==1)
+            {
+                c1++;
+            }
+            if(c2+c1==m && c1==1)
+            {
+                
+             heSo[index]=c[i];
+             index++;
+            }
+        }
+    }
+    for(int e=0;e<5;e++)
+    {
+  
+    double delta[n];
+    double delta1[n];
+    for(int i=0;i<n;i++)
+    {
+        delta[i]=0;
+         delta1[i]=0;
+    }
+    
+   
+   
+    // delta
+    double sum = 0;
+    for(int i = 0 ; i < n; i++)
+    {
+        sum = 0;
+        for(int j = 0; j < m ; j++)
+        {
+            sum += heSo[j] * arr[j][i];
+        }
+        
+         delta[i] = sum - c[i];
+         delta1[i]=sum-c[i];
+    }
+
+    int hesodelta=0;
+    int hesomin=0;
+    int k=0;
+    double min[100];
+    double min1[100];
+ double f = 0;
+     for(int i = 0 ; i < m; i++)
+    {
+        f += heSo[i] * b[i];
+    }
+    //check delta
+  
+for(int i=0 ;i<n-1;i++)
+{
+    for(int j=i+1 ;j<n;j++)
+    {
+        if(delta[i]<delta[j])
+        {double tem = delta[i];
+            delta[i]=delta[j];
+            delta[j]=tem;
+        }
+    }
 }
+
+if( delta[0]<=0)
+{
+cout<<"nghiem f(x):" <<f<<endl; break;
+}
+else
+{
+    for(int i=0;i<n;i++)
+    {
+  if( delta1[i]==delta[0])
+  {
+      hesodelta=i;
+  }
+    }
+    for(int j=0;j<m;j++)
+    {
+        if(arr[hesodelta][j]<=0)
+        {
+          k++;
+        }
+    }
+    if(k==m)
+    {
+       cout<<"vo nghiem"<<endl; break;
+    }
+}
+for(int i=0;i<m;i++)
+{
+    min[i]= b[i]/arr[i][hesodelta];
+    min1[i]= b[i]/arr[i][hesodelta];
+}
+for(int i=0 ;i<m-1;i++)
+{
+    for(int j=i+1 ;j<m;j++)
+    {
+        if(min[i]>min[j])
+        {
+            double tem = min[i];
+            min[i]=min[j];
+            min[j]=tem;
+        }
+    }
+}
+for(int i=0;i<m;i++)
+{
+    if(min1[i]== min[0])
+    {
+        hesomin=i;
+    }
+}
+// tinh lai heso
+ heSo[hesomin] = c[hesodelta];
+//thay b
+for(int i = 0 ; i < m; i++)
+        {
+           if(i==hesomin)   
+           {
+               b[i]= b[i]/arr[hesomin][hesodelta];
+           }  
+           else
+           {
+               b[i]=b[i]- (b[hesomin]*arr[i][hesodelta])/arr[hesomin][hesodelta];
+           }    
+        }
+        // thay arr
+         double arr1[m][100];
+      for(int i = 0 ; i < m; i++)
+            {
+                for(int j = 0; j < n ; j++)
+                {
+                    if(i == hesomin)
+                    {
+                        arr1[i][j] = (arr[i][j])/(arr[i][hesodelta]);
+                    }
+                    if(i!=hesomin){
+                       arr1[i][j] = arr[i][j] - (arr[hesomin][j])*(arr[i][hesodelta])/(arr[hesomin][hesodelta]); 
+                    }
+                }
+            }
+     for(int i=0;i<m;i++)
+     {
+         for(int j=0;j<n;j++)
+         {
+             arr[i][j]=arr1[i][j];
+         }
+     }
+          
+   
+    }
+
+   
+    
+  
+     
+     
+
+ 
+
+    
+
+  
+
+
+        
+ 
+   }
