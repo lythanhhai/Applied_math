@@ -52,8 +52,7 @@ void tinhDelta(float delta[], float arr[][100], float b[], float c[], float heSo
         }
     }
 }
-
-float timFMin(float heSo[], float arr[][100], float b[], float c[], float delta[], int m, int n, float fmin)
+void timFMin(float heSo[], float arr[][100], float b[], float c[], float delta[], int m, int n, float fmin)
 {
     // Aik
     int count = 0;
@@ -433,7 +432,7 @@ float timFMinPha1(float heSoPha1[], float arrPha1[][100], float b[], float cpha1
             }
             else 
             {
-                float arrPha2[m][n];
+                float arrPha2[m][100];
                 for(int i = 0 ; i < m ; i++)
                 {
                     for(int j = 0 ; j < n ; j++)
@@ -454,10 +453,10 @@ float timFMinPha1(float heSoPha1[], float arrPha1[][100], float b[], float cpha1
                 float heSoPha2[m];
                 for(int i = 0 ; i < m ; i++)
                 {
-                    if(arrContainCot[i] != -1)
-                    {
+                    // if(arrContainCot[i] != -1)
+                    // {
                         heSoPha2[i] = c[arrContainCot[i]];
-                    }
+                    //}
                 }
                 float delta[n];
                 tinhDelta(delta, arrPha2, bpha2, cpha2, heSoPha2, n, m);
@@ -495,7 +494,7 @@ int main()
     setCPha1(cpha1, m, n);
     float heSoPha1[m];
     timHeSoPha1(heSoPha1, m);
-    float arrPha1[m][m + n];
+    float arrPha1[m][100];// m + n
     setArrPha1(arrPha1, array, m, n);
     float deltaPha1[m + n];
     tinhDeltaPha1(deltaPha1, arrPha1, b, cpha1, heSoPha1, n, m);

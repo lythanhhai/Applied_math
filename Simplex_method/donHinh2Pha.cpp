@@ -33,6 +33,169 @@ void nhapVectoC(float c[], int n)
     }
 }
 
+void tinhDelta(float delta[], float arr[][100], float b[], float c[], float heSo[], int n, int m)
+{
+    // tính tổng của delta
+    float sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        sum = 0;
+        for (int j = 0; j < m; j++)
+        {
+            sum += heSo[j] * arr[j][i];
+        }
+
+        delta[i] = sum - c[i];
+        if (delta[i] < 0)
+        {
+            delta[i] = 0;
+        }
+    }
+}
+void timFMin(float heSo[], float arr[][100], float b[], float c[], float delta[], int m, int n, float fmin)
+{
+    // Aik
+    int count = 0;
+    int checkArr = 0;
+    int checkVoNghiem = 0;
+    // tìm cột max
+    float maxDelta = 0;
+    int indexMax = 0;
+    // tìm hàng min
+    float MaxArr = 1000000;
+    int indexMaxArr = 1000000;
+    fmin = 0;
+    for (int i = 0; i < m; i++)
+    {
+        fmin += heSo[i] * b[i];
+    }
+    // cout << fmin << endl;
+    //  xét delta
+    int checkDelta = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (delta[i] <= 0)
+        {
+            checkDelta++;
+        }
+    }
+
+    if (checkDelta == n)
+    {
+        count++;
+        cout << endl;
+        cout << "ket qua la" << endl;
+        cout << "gia tri min la " << fmin << endl;
+        //return fmin;
+    }
+    else
+    {
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                // if (delta[i] > 0 && arr[j][i] > 0)
+                // {
+                //     if (maxDelta < delta[i])
+                //     {
+                //         maxDelta = delta[i];
+                //         indexMax = i;
+                //     }
+                //     checkVoNghiem++;
+                // }
+                if (delta[i] > 0)
+                {
+                    if (arr[j][i] > 0)
+                    {
+                        checkVoNghiem++;
+                        if (maxDelta < delta[i])
+                        {
+                            maxDelta = delta[i];
+                            indexMax = i;
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < m; i++)
+        {
+            if (MaxArr > ((float)b[i] / (float)arr[i][indexMax]) && arr[i][indexMax] > 0)
+            {
+                MaxArr = (float)b[i] / (float)arr[i][indexMax];
+                indexMaxArr = i;
+            }
+        }
+        if (checkVoNghiem <= 0)
+        {
+            count++;
+            cout << endl;
+            cout << "Ket qua la" << endl;
+            cout << "phuong trinh vo nghiem" << endl;
+            //return -1000000000;
+        }
+        else
+        {
+            // thay thế heSo
+            heSo[indexMaxArr] = c[indexMax];
+
+            // update b
+            for (int i = 0; i < m; i++)
+            {
+                if (i == indexMaxArr)
+                {
+                    b[i] = (float)b[i] / (float)arr[i][indexMax];
+                }
+                else
+                {
+                    b[i] = b[i] - ((float)b[indexMaxArr] / (float)arr[indexMaxArr][indexMax]) * (float)arr[i][indexMax];
+                }
+            }
+            // update arr
+            //cout << 
+            float arrCopy[m][n];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (i == indexMaxArr)
+                    {
+                        arrCopy[indexMaxArr][j] = (float)arr[indexMaxArr][j] / (float)arr[indexMaxArr][indexMax];
+                    }
+                    else
+                    {
+                        arrCopy[i][j] = arr[i][j] - ((float)arr[indexMaxArr][j] / (float)arr[indexMaxArr][indexMax]) * (float)arr[i][indexMax];
+                    }
+                }
+            }
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    arr[i][j] = arrCopy[i][j];
+                }
+            }
+        }
+    }
+    tinhDelta(delta, arr, b, c, heSo, n, m);
+
+    if (count == 0)
+    {
+        timFMin(heSo, arr, b, c, delta, m, n, fmin);
+    }
+    else
+    {
+    }
+}
+
 void setCPha1(float cpha1[], int m, int n)
 {
     for(int i = 0 ; i < m + n; i++)
@@ -255,7 +418,7 @@ float timFMinPha1(float heSoPha1[], float arrPha1[][100], float b[], float cpha1
         }
         else 
         {
-            int count2 = 0;
+            int count2 = 0;// điều kiện kiểm tra xem còn t không
             for(int i = 0; i < m ; i++)
             {
                 if(heSoPha1[i] > 0)
@@ -269,7 +432,7 @@ float timFMinPha1(float heSoPha1[], float arrPha1[][100], float b[], float cpha1
             }
             else 
             {
-                float arrPha2[m][n];
+                float arrPha2[m][100];
                 for(int i = 0 ; i < m ; i++)
                 {
                     for(int j = 0 ; j < n ; j++)
@@ -290,10 +453,10 @@ float timFMinPha1(float heSoPha1[], float arrPha1[][100], float b[], float cpha1
                 float heSoPha2[m];
                 for(int i = 0 ; i < m ; i++)
                 {
-                    if(arrContainCot[i] != -1)
-                    {
+                    // if(arrContainCot[i] != -1)
+                    // {
                         heSoPha2[i] = c[arrContainCot[i]];
-                    }
+                    //}
                 }
                 float delta[n];
                 tinhDelta(delta, arrPha2, bpha2, cpha2, heSoPha2, n, m);
@@ -331,7 +494,7 @@ int main()
     setCPha1(cpha1, m, n);
     float heSoPha1[m];
     timHeSoPha1(heSoPha1, m);
-    float arrPha1[m][m + n];
+    float arrPha1[m][100];// m + n
     setArrPha1(arrPha1, array, m, n);
     float deltaPha1[m + n];
     tinhDeltaPha1(deltaPha1, arrPha1, b, cpha1, heSoPha1, n, m);
