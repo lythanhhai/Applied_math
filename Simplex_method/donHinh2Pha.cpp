@@ -33,42 +33,227 @@ void nhapVectoC(float c[], int n)
     }
 }
 
-void timHeSo(float heSo[], float arr[][100], float c[], int m, int n)
+void setCPha1(float cpha1[], int m, int n)
 {
-    int count = 0;
-    int index = 0;
-    for (int i = 0; i < n; i++)
+    for(int i = 0 ; i < m + n; i++)
     {
-        for (int j = 0; j < m; j++)
+        if(i < n)
         {
-            if (arr[j][i] != 0)
+            cpha1[i] = 0;
+        }
+        else 
+        {
+            cpha1[i] = 1;
+        }
+    }
+}
+
+void timHeSoPha1(float heSoPha1[], int m)
+{
+    for(int i = 0 ; i < m; i++)
+    {
+        heSoPha1[i] = 1;
+    }
+}
+
+void setArrPha1(float arrPha1[][100], float arr[][100], int m, int n)
+{
+    float arrT[m][m];
+    for(int i = 0 ; i < m ; i++)
+    {
+        for(int j = 0 ; j < m; j++)
+        {
+            cout << "arrT[" << i << "][" << j << "]" << endl;
+            cin >> arrT[i][j];
+        }
+    }
+    for(int i = 0 ; i < m ; i++)
+    {
+        for(int j = 0 ; j < m + n; j++)
+        {
+            if(j < n)
             {
-                count++;
-                // break;
+                arrPha1[i][j] = arr[i][j];
+            }
+            else 
+            {
+                arrPha1[i][j] = arrT[i][j - n];
             }
         }
-        if (count == 1)
+    }
+}
+
+void tinhDeltaPha1(float deltaPha1[], float arrPha1[][100], float b[], float cpha1[], float heSoPha1[], int n, int m)
+{
+    // tính tổng của delta
+    float sum = 0;
+    for (int i = 0; i < n + m; i++)
+    {
+        sum = 0;
+        for (int j = 0; j < m; j++)
         {
-            // if(index >= m)
-            // {
-            //     break;
-            // }
-            heSo[index] = c[i];
-            index++;
-            count = 0;
+            sum += heSoPha1[j] * arrPha1[j][i];
+        }
+
+        deltaPha1[i] = sum - cpha1[i];
+        if (deltaPha1[i] < 0)
+        {
+            deltaPha1[i] = 0;
+        }
+    }
+    
+}
+
+float timFMinPha1(float heSoPha1[], float arrPha1[][100], float b[], float cpha1[], float deltaPha1[], int m, int n, float fmin1)
+{
+    // Aik
+    int count = 0; // xét điều kiện đệ quy
+    int count1 = 0; // xét điều kiện cho pha2
+    int checkArr = 0;
+    int checkVoNghiem = 0;
+    // tìm cột max
+    float maxDelta = 0;
+    int indexMax = 0;
+    // tìm hàng min
+    float MaxArr = 1000000;
+    int indexMaxArr = 1000000;
+    fmin1 = 0;
+    for (int i = 0; i < m; i++)
+    {
+        fmin1 += heSoPha1[i] * b[i];
+    }
+    // cout << fmin << endl;
+    //  xét delta
+    int checkDelta = 0;
+    for (int i = 0; i < n + m; i++)
+    {
+        if (deltaPha1[i] <= 0)
+        {
+            checkDelta++;
+        }
+    }
+
+    if (checkDelta == n + m)
+    {
+        count++;
+        count1++;
+        //cout << endl;
+        //cout << "ket qua la" << endl;
+        //cout << "gia tri min la " << fmin1 << endl;
+        //return fmin;
+    }
+    else
+    {
+
+        for (int i = 0; i < n + m; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+
+                if (deltaPha1[i] > 0)
+                {
+                    if (arrPha1[j][i] > 0)
+                    {
+                        checkVoNghiem++;
+                        if (maxDelta < deltaPha1[i])
+                        {
+                            maxDelta = deltaPha1[i];
+                            indexMax = i;
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < m; i++)
+        {
+            if (MaxArr > ((float)b[i] / (float)arrPha1[i][indexMax]) && arrPha1[i][indexMax] > 0)
+            {
+                MaxArr = (float)b[i] / (float)arrPha1[i][indexMax];
+                indexMaxArr = i;
+            }
+        }
+        if (checkVoNghiem <= 0)
+        {
+            count++;
+            cout << endl;
+            cout << "Ket qua la" << endl;
+            cout << "phuong trinh vo nghiem" << endl;
+            //return -1000000000;
         }
         else
         {
-            count = 0;
+            // thay thế heSo
+            heSoPha1[indexMaxArr] = cpha1[indexMax];
+
+            // update b
+            for (int i = 0; i < m; i++)
+            {
+                if (i == indexMaxArr)
+                {
+                    b[i] = (float)b[i] / (float)arrPha1[i][indexMax];
+                }
+                else
+                {
+                    b[i] = b[i] - ((float)b[indexMaxArr] / (float)arrPha1[indexMaxArr][indexMax]) * (float)arrPha1[i][indexMax];
+                }
+            }
+            // update arr
+            //cout << 
+            float arrCopy[m][n + m];
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n + m; j++)
+                {
+                    if (i == indexMaxArr)
+                    {
+                        arrCopy[indexMaxArr][j] = (float)arrPha1[indexMaxArr][j] / (float)arrPha1[indexMaxArr][indexMax];
+                    }
+                    else
+                    {
+                        arrCopy[i][j] = arrPha1[i][j] - ((float)arrPha1[indexMaxArr][j] / (float)arrPha1[indexMaxArr][indexMax]) * (float)arrPha1[i][indexMax];
+                    }
+                }
+            }
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n + m; j++)
+                {
+                    arrPha1[i][j] = arrCopy[i][j];
+                }
+            }
         }
     }
-    // test
-    // cout << "heso" << endl;
-    // for(int i = 0; i < m; i++)
-    // {
-    //     cout << heSo[i] << " ";
-    // }
-    // cout << endl;
+    tinhDeltaPha1(deltaPha1, arrPha1, b, cpha1, heSoPha1, n, m);
+
+
+    if (count == 0)
+    {
+        // tiếp tục pha 1
+        timFMinPha1(heSoPha1, arrPha1, b, cpha1, deltaPha1, m, n, fmin1);
+
+    }
+    else
+    {
+        if(count1 == 0)
+        {
+
+        }
+        else 
+        {
+        
+            // qua pha 2
+            timFMinPha1(heSoPha1, arrPha1, b, cpha1, deltaPha1, m, n, fmin1);
+        }
+    }
+
 }
 
 void tinhDelta(float delta[], float arr[][100], float b[], float c[], float heSo[], int n, int m)
@@ -89,20 +274,6 @@ void tinhDelta(float delta[], float arr[][100], float b[], float c[], float heSo
             delta[i] = 0;
         }
     }
-    // test
-    // cout << "delta2" << delta[1] << endl;
-    // cout << "heso0" << heSo[0] << endl;
-    // cout << "heso1" << heSo[1] << endl;
-    // cout << "arr0" << arr[0][1] << endl;
-    // cout << "arr1" << arr[1][1] << endl;
-    // cout << "c1" << c[1] << endl;
-
-    // cout << "delta" << endl;
-    // for(int i = 0; i < n ; i++)
-    // {
-    //     cout << delta[i] << " ";
-    // }
-    // cout << endl;
 }
 
 float timFMin(float heSo[], float arr[][100], float b[], float c[], float delta[], int m, int n, float fmin)
@@ -294,17 +465,29 @@ int main()
     nhapVectoB(b, m);
     float c[n];
     nhapVectoC(c, n);
+
     float heSo[m];
-    timHeSo(heSo, array, c, m, n); 
+    //timHeSo(heSo, array, c, m, n); 
     float delta[n];
-    tinhDelta(delta, array, b, c, heSo, n, m);
+    //tinhDelta(delta, array, b, c, heSo, n, m);
     float fmin = 0;
-    timFMin(heSo, array, b, c, delta, m, n, fmin);
-    cout << endl;
-    cout << "delta" << endl;
-    for(int i = 0; i < n ; i++)
-    {
-        cout << delta[i] << " ";
-    }
+
+    float cpha1[m + n];
+
+    float heSoPha1[m];
+
+    float arrPha1[m][m + n];
+
+    float deltaPha1[m + n];
+
+    float fmin1;
+
+    // timFMin(heSo, array, b, c, delta, m, n, fmin);
+    // cout << endl;
+    // cout << "delta" << endl;
+    // for(int i = 0; i < n ; i++)
+    // {
+    //     cout << delta[i] << " ";
+    // }
     cout << endl;
 }
