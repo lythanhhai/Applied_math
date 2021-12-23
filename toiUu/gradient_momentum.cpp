@@ -20,7 +20,7 @@ void GD_momentum(double theta_init, double alpha=0.1,double beta=0.9,int loop = 
     double arr[loop];
     arr[0] = theta_init;
     double arr1[loop];
-    arr[0] = 0;
+    arr1[0] = 0;
     double v_new;
     for(int i = 0 ; i < loop; i++)
     {
@@ -34,7 +34,7 @@ void GD_momentum(double theta_init, double alpha=0.1,double beta=0.9,int loop = 
     //     cout << arr[i] << " ";
     // }
     double min = arr[0];
-     for(int i = 0 ; i < loop ; i++)
+    for(int i = 0 ; i < loop ; i++)
     {
         if(min > arr[i+1])
         {
@@ -47,7 +47,7 @@ void GD_momentum(double theta_init, double alpha=0.1,double beta=0.9,int loop = 
 }
 
 // gradient discent
-double* myGD1(double alpha, int x0, double gra = 1 * pow(10, -3), int loop = 100)
+void myGD1(double alpha, int x0, double gra = 1 * pow(10, -3), int loop = 100)
 {
     double arr[loop];
     arr[0] = x0;
@@ -70,7 +70,6 @@ double* myGD1(double alpha, int x0, double gra = 1 * pow(10, -3), int loop = 100
     }
     cout << endl;
     cout << "min = " << min << endl;
-    //return arr;
 }
 
 int main()
@@ -78,6 +77,7 @@ int main()
     cout << cost(1);
     //myGD1(5, 0.1);
     GD_momentum(5);
+    myGD1(0.1, 10);
     // for(int i = 0 ; i < 1000 ; i++)
     // {
     //     cout << grad(0.1, 10)[i] << endl;

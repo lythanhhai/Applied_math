@@ -27,7 +27,8 @@ void xuat(float matrix[][100], int n, int m)
 }
 
 void calcEigValue(float matrix[][100], float eigValueMatrix[][100], int n)
-{ // tinh tri rieng
+{ 
+	// tinh tri rieng
 	float b = -matrix[0][0] + -matrix[1][1];
 	float c = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
 	float delta = b * b - 4 * c;

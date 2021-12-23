@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <math.h>
+#include <iostream>
+using namespace std;
 #include "../Eigen/Eigenvalues"
+
 
 void nhap(float matrix[][100], int n, int m)
 {
@@ -8,21 +11,22 @@ void nhap(float matrix[][100], int n, int m)
 	{
 		for (int j = 0; j < m; j++)
 		{
-			printf("nhap a[%d][%d]: ",i ,j);
-			scanf("%f",&matrix[i][j]);
+			cout << "nhap a[" << i << "][" << j << "]: ";
+			cin >> matrix[i][j];
 		}
 	}
 }
 
 void xuat(float matrix[][100], int n, int m)
 {
+	cout << "Ma tran goc: " << endl;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{
-			printf("%f ",matrix[i][j]);
+			cout << matrix[i][j] << " ";
 		}
-		printf("\n");
+		cout << endl;
 	}
 }
 bool kiemTraMaTranVuong(float matrix[][100],int n, int m)
@@ -104,14 +108,14 @@ void maTranCheoTren(float matrix[][100],int n, int m)
 		}	
 	}
     
-    printf("MA TRAN CHEO TREN: \n");
+    cout << "Ma tran cheo tren: " << endl;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{
-			printf("%f ", L[i][j]);
+			cout << L[i][j] << " ";
 		}
-		printf("\n");
+		cout << endl;
 	}
 
 
@@ -124,14 +128,14 @@ void maTranCheoTren(float matrix[][100],int n, int m)
 		}
 	}
     
-    printf("MA TRAN CHEO DUOI: \n");
+    cout << "Ma tran cheo duoi: " << endl;
 	for (int i = 0; i < n; i++)
 	{
 		for (int j = 0; j < m; j++)
 		{
-			printf("%f ", L1[i][j]);
+			cout << L1[i][j] << " ";
 		}
-		printf("\n");
+		cout << endl;
 	}
 }	
 
@@ -139,12 +143,14 @@ int main()
 {
 	float matrix[100][100];
 	int n;
-	printf("Nhap n = ");
-	scanf("%d", &n);
+	cout << "Nhap n = ";
+	cin >> n;
 	nhap(matrix, n, n);
 	xuat(matrix, n, n);
 	Eigen::MatrixXd A(n,n);
 	kiemTraMaTranXDD(A, n, n);
+	kiemTraMaTranVuong(matrix, n, n);
+	kiemTraDoiXung(matrix, n, n);
 	maTranCheoTren(matrix,n,n);
 }
 

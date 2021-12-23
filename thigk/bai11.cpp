@@ -39,7 +39,7 @@ long long multipleUoc(long long N)
             multiple %= 1000000009;
         }
     }
-    return (multiple % 1000000009) * N ;
+    return (multiple % 1000000009) * N;
 }
 
 

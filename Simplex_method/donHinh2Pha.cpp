@@ -10,7 +10,7 @@ void nhapMaTranA(float arr[][100], int m, int n)
     {
         for (int j = 0; j < n; j++)
         {
-            cout << "nhap arr[" << i << "][" << j << "]" << endl;
+            cout << "nhap arr[" << i << "][" << j << "] = ";
             cin >> arr[i][j];
         }
     }
@@ -19,7 +19,7 @@ void nhapVectoB(float b[], int m)
 {
     for (int i = 0; i < m; i++)
     {
-        cout << "nhap b[" << i << "]" << endl;
+        cout << "nhap b[" << i << "] = ";
         cin >> b[i];
     }
 }
@@ -28,7 +28,7 @@ void nhapVectoC(float c[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        cout << "nhap c[" << i << "]" << endl;
+        cout << "nhap c[" << i << "] = ";
         cin >> c[i];
     }
 }
@@ -84,7 +84,7 @@ void timFMin(float heSo[], float arr[][100], float b[], float c[], float delta[]
     {
         count++;
         cout << endl;
-        cout << "ket qua la" << endl;
+        cout << "ket qua la: " << endl;
         cout << "gia tri min la " << fmin << endl;
         //return fmin;
     }
@@ -138,7 +138,7 @@ void timFMin(float heSo[], float arr[][100], float b[], float c[], float delta[]
         {
             count++;
             cout << endl;
-            cout << "Ket qua la" << endl;
+            cout << "Ket qua la: " << endl;
             cout << "phuong trinh vo nghiem" << endl;
             //return -1000000000;
         }
@@ -226,7 +226,7 @@ void setArrPha1(float arrPha1[][100], float arr[][100], int m, int n)
     {
         for(int j = 0 ; j < m; j++)
         {
-            cout << "arrT[" << i << "][" << j << "]" << endl;
+            cout << "arrT[" << i << "][" << j << "] = ";
             cin >> arrT[i][j];
         }
     }
@@ -347,7 +347,7 @@ float timFMinPha1(float heSoPha1[], float arrPha1[][100], float b[], float cpha1
         {
             count++;
             cout << endl;
-            cout << "Ket qua la" << endl;
+            cout << "Ket qua la: " << endl;
             cout << "phuong trinh vo nghiem" << endl;
             //return -1000000000;
         }

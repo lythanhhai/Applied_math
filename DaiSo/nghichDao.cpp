@@ -1,13 +1,11 @@
 #include<stdio.h>
 #include<conio.h>
 
-
- 
 int main()
 {
-    int i,j,k,n, sign = 1;
+    int i, j, k, n, sign = 1;
     double det = 1; double temp;
-    double a[10][10],b[10][10];
+    double a[10][10], b[10][10];
 
     printf("\nCap cua ma tran vuong, n = "); scanf("%d",&n);
  
@@ -18,7 +16,7 @@ int main()
                 scanf("%lf",&a[i][j]);
             }
  
-// tính det
+    // tính det
     for (i = 0; i < n-1; i++)
         {
             if (a[i][i] == 0)
@@ -48,17 +46,17 @@ int main()
  
 if (det != 0)
 {
-    for (i = 0; i < n; i++) // T?o ra b l� ma tr?n don v? d�
+    for (i = 0; i < n; i++)
         for (j = 0; j < n; j++)
         if (i==j) b[i][j] = 1; else b[i][j] = 0;
  
-    for (i = 0; i < n; i++) // X? l� t? h�ng d?u d?n h�ng cu?i
+    for (i = 0; i < n; i++)
         {
-            if (a[i][i] == 0) // N?u g?p ph?n t? tr�n du?ng ch�o ch�nh b?ng 0 th� d?i h�ng
+            if (a[i][i] == 0)
                 {
                     k = i+1;
                     while (k < n && a[k][i] == 0) k++;
-                    for (j = 0; j < n; j++) // �?i h�ng d� c?a a d�, c? v?i ma tr?n b n?a
+                    for (j = 0; j < n; j++) 
                         {
                             temp = a[i][j];
                             a[i][j] = a[k][j];
@@ -79,9 +77,9 @@ if (det != 0)
                     for (k = i; k < n; k++) a[j][k] += temp*a[i][k];
                     for (k = 0; k < n; k++) b[j][k] += temp*b[i][k];
                 }
-        }// K?t th�c qu� tr�nh Gauss
+        }
  
-    for (i = n-1; i > 0; i--) // B?t d?u qu� tr�nh Jordan
+    for (i = n-1; i > 0; i--)
         for (j = i-1; j >=0; j--)
             {
                 temp = -a[j][i];
@@ -89,7 +87,7 @@ if (det != 0)
                 for (k = 0; k < n; k++) b[j][k] += temp*b[i][k];
             }
  
-    for (i = 0; i < n; i++)// In ra ma tr?n b, b�y gi? l� ma tr?n nghich d?o c?a a
+    for (i = 0; i < n; i++)
         {
             for (j = 0; j < n; j++) printf("%8.3lf\t", b[i][j]);
             printf("\n");

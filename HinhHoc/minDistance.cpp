@@ -41,7 +41,7 @@ float bruteForce(Point P[], int n)
 
 float min(float x, float y)
 {
-	return (x < y)? x : y;
+	return (x < y) ? x : y;
 }
 
 float stripClosest(Point strip[], int size, float d)
@@ -82,12 +82,25 @@ float closest(Point P[], int n)
 	return closestUtil(P, n);
 }
 
-// Driver code
 int main()
 {
-	Point P[] = {{2, 3}, {12, 30}, {40, 50}, {5, 1}, {12, 10}, {3, 4}};
+	int m;
+	cout << "Nhap m = ";
+	cin >> m;
+	
+	Point P[m] = {};
+	for (int i = 0; i < m; i++)
+	{
+		Point p;
+		cout << "nhap x point[" << i << "] = ";
+		cin >> p.x;
+		cout << "nhap y point[" << i << "] = ";
+		cin >> p.y;
+		P[i] = p;
+	}
+	//Point P[] = {{2, 3}, {12, 30}, {40, 50}, {5, 1}, {12, 10}, {3, 4}};
 	int n = sizeof(P) / sizeof(P[0]);
-	cout << "The smallest distance is " << closest(P, n);
+	cout << "Khoang cach nho nhat tim duoc la " << closest(P, n) << endl;
 	return 0;
 }
 

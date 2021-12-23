@@ -66,6 +66,7 @@ void calcEigVector(float matrix[][100], float eigValueMatrix[][100], float eigVe
 		}
 	}
 }
+
 void buildMatrixV(float matrixV[][100], float eigVector1[][100], float eigVector2[][100], int n)
 { //dung ma tran V
 	for (int i = 0; i < n; i++)
