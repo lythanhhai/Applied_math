@@ -10,7 +10,7 @@ void nhapMaTranA(float arr[][100], int m, int n)
     {
         for (int j = 0; j < n; j++)
         {
-            cout << "nhap arr[" << i << "][" << j << "]" << endl;
+            cout << "nhap arr[" << i << "][" << j << "] = ";
             cin >> arr[i][j];
         }
     }
@@ -19,7 +19,7 @@ void nhapVectoB(float b[], int m)
 {
     for (int i = 0; i < m; i++)
     {
-        cout << "nhap b[" << i << "]" << endl;
+        cout << "nhap b[" << i << "] = ";
         cin >> b[i];
     }
 }
@@ -28,7 +28,7 @@ void nhapVectoC(float c[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        cout << "nhap c[" << i << "]" << endl;
+        cout << "nhap c[" << i << "] = ";
         cin >> c[i];
     }
 }
@@ -226,7 +226,7 @@ void setArrPha1(float arrPha1[][100], float arr[][100], int m, int n)
     {
         for(int j = 0 ; j < m; j++)
         {
-            cout << "arrT[" << i << "][" << j << "]" << endl;
+            cout << "arrT[" << i << "][" << j << "] = ";
             cin >> arrT[i][j];
         }
     }
@@ -418,7 +418,7 @@ float timFMinPha1(float heSoPha1[], float arrPha1[][100], float b[], float cpha1
         }
         else 
         {
-            int count2 = 0;
+            int count2 = 0;// điều kiện kiểm tra xem còn t không
             for(int i = 0; i < m ; i++)
             {
                 if(heSoPha1[i] > 0)

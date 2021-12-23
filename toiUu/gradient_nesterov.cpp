@@ -14,13 +14,13 @@ double grad(int x)
     return 2 * x + 10 * cos(x);
 }
 
-// momentum
+// nesterov
 void GD_nesterov(double theta_init, double alpha=0.1,double beta=0.9,int loop = 1000)
 {
     double arr[loop];// theta
     arr[0] = theta_init;
     double arr1[loop];// v
-    arr[0] = 0;
+    arr1[0] = 0;
     double v_new;
     for(int i = 0 ; i < loop; i++)
     {
@@ -45,33 +45,6 @@ void GD_nesterov(double theta_init, double alpha=0.1,double beta=0.9,int loop = 
     cout << endl;
     cout << "min = " << min << endl;
 }
-
-// // gradient discent
-// double* myGD1(double alpha, int x0, double gra = 1 * pow(10, -3), int loop = 100)
-// {
-//     double arr[loop];
-//     arr[0] = x0;
-//     for(int i = 0 ; i < loop; i++)
-//     {
-//         arr[i + 1] = arr[i] - alpha * grad(arr[i]);
-//         if(abs(grad(i + 1)) < gra)
-//         {
-//             break;
-//         }
-//     }
-//     double min = arr[0];
-//     for(int i = 0 ; i < loop ; i++)
-//     {
-//         if(min > arr[i+1])
-//         {
-//             min = arr[i+1];
-//         }
-//         //cout << arr[i] << " ";
-//     }
-//     cout << endl;
-//     cout << "min = " << min << endl;
-//     //return arr;
-// }
 
 int main()
 {

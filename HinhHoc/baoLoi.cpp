@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -77,4 +76,5 @@ main() {
     for (int i = 0; i < hs.size() - 1; i++)
         r += (a[hs[i]].X - a[hs[i + 1]].X) * (a[hs[i]].Y + a[hs[i + 1]].Y);
     cout << lllabs(r) << endl;
+    cout << "1" << endl;
 }

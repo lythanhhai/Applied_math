@@ -14,7 +14,8 @@ double grad(int x)
     return 2 * x + 5 * cos(x);
 }
 
-double* grad(double alpha, int x0, double gra = 1 * pow(10, -3), int loop = 100)
+// hàm tính gradient-discent
+void myGradient(double alpha, int x0, double gra = 1 * pow(10, -3), int loop = 100)
 {
     double arr[loop];
     arr[0] = x0;
@@ -30,7 +31,7 @@ double* grad(double alpha, int x0, double gra = 1 * pow(10, -3), int loop = 100)
     {
         cout << arr[i] << " ";
     }
-    return arr;
+  
 }
 
 int main()
